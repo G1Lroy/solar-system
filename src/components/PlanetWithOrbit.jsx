@@ -1,34 +1,48 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Line, Text, Text3D } from "@react-three/drei";
 import * as THREE from 'three';
-import { rotationPeriods } from './../const/index'
 
-function PlanetWithOrbit({ semiMajorAxis, eccentricity, size, color, orbitPeriod, name, inclination, texture }) {
+
+
+function PlanetWithOrbit({ semiMajorAxis, eccentricity, size, color, orbitPeriod, name, inclination, texture, isRetrograd, rotationPeriod }) {
     const ref = useRef();
+    const [timeScale, setTimeScale] = useState(1);
+
     const semiMinorAxis = semiMajorAxis * Math.sqrt(1 - Math.pow(eccentricity, 2));
 
 
     useFrame(({ clock }) => {
-        
-        const elapsedDays = (clock.getElapsedTime() / 60) * 365; // Переводим прошедшее время в "земные дни"
-        const t = (elapsedDays / orbitPeriod) * 2 * -Math.PI; // Угол в радианах для анимации орбиты
-        const rotationPeriodInSeconds = rotationPeriods[name.toLowerCase()]; // Период вращения в секундах
-        const rotationSpeed = ((2 * Math.PI) / rotationPeriodInSeconds); // Угловая скорость вращения
-        // Обновляем положение планеты
-        ref.current.position.x = semiMajorAxis * Math.cos(t) + eccentricity;
-        ref.current.position.z = semiMinorAxis * Math.sin(t);
-        ref.current.rotation.y += rotationSpeed * (clock.getDelta())
+        // Прошедшее время в земных годах, где 1 минута = 1 земной год
+        const elapsedYears = (clock.getElapsedTime()) / 60 * timeScale
+
+        // Угол в радианах для движения по орбите
+        const orbitProgress = elapsedYears / (orbitPeriod / 365);
+        const orbitAngle = orbitProgress * 2 * -Math.PI;
+
+        // Обновляем положение планеты по орбите
+        const x = semiMajorAxis * Math.cos(orbitAngle) + eccentricity;
+        const z = semiMinorAxis * Math.sin(orbitAngle);
+        ref.current.position.set(x, 0, z);
+
+        // Угловая скорость вращения
+        const rotationSpeed = (2 * Math.PI * 365) / (rotationPeriod);
+
+        // Вращение планеты вокруг своей оси
+        if (isRetrograd) {
+            ref.current.rotation.y += rotationSpeed * timeScale
+        } else {
+            ref.current.rotation.y -= rotationSpeed * timeScale
+        }
     });
 
     // Создание точек для основной орбиты
-    const points = [];
-    for (let i = 0; i <= 360; i++) {
+    const points = Array.from({ length: 361 }, (_, i) => {
         const angle = (i * Math.PI) / 180;
         const x = semiMajorAxis * Math.cos(angle) + eccentricity;
         const z = semiMinorAxis * Math.sin(angle);
-        points.push([x, 0, z]);
-    }
+        return [x, 0, z];
+    });
 
 
     return (
@@ -36,7 +50,7 @@ function PlanetWithOrbit({ semiMajorAxis, eccentricity, size, color, orbitPeriod
             {/* Орбита и планета */}
             <Line points={points} color={color} lineWidth={1} />
             <mesh ref={ref}>
-                <Text>0</Text>
+                <Text >0</Text>
                 <sphereGeometry args={[size, 32, 32]} />
                 <meshStandardMaterial color={color} />
             </mesh>

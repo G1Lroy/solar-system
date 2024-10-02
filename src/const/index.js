@@ -21,6 +21,8 @@ export const planetsData = {
         color: "white",
         orbitPeriod: 88,
         inclination: 7,
+        isRetrograd: false,
+        rotationPeriod: 58.6 * 24 * 3600 // 58.6 земных дней в секундах
     },
     venus: {
         semiMajorAxis: 0.72,
@@ -29,6 +31,8 @@ export const planetsData = {
         color: "orange",
         orbitPeriod: 225,
         inclination: 3.4,
+        isRetrograd: true,
+        rotationPeriod: 243 * 24 * 3600 // 243 земных дня в секундах
     },
     earth: {
         semiMajorAxis: 1.00,
@@ -37,6 +41,8 @@ export const planetsData = {
         color: "blue",
         orbitPeriod: 365,
         inclination: 0,
+        isRetrograd: false,
+        rotationPeriod: 24 * 3600// 24 часа в секундах
     },
     mars: {
         semiMajorAxis: 1.52,
@@ -45,6 +51,8 @@ export const planetsData = {
         color: "violet",
         orbitPeriod: 687,
         inclination: 1.85,
+        isRetrograd: true,
+        rotationPeriod: 24.6 * 3600 // 24.6 часа в секундах
     },
     jupiter: {
         semiMajorAxis: 5.20,
@@ -53,6 +61,8 @@ export const planetsData = {
         color: "orange",
         orbitPeriod: 4333,
         inclination: 1.3,
+        isRetrograd: false,
+        rotationPeriod: 9.9 * 3600 // 9.9 часов в секундах
     },
     saturn: {
         semiMajorAxis: 9.58,
@@ -61,6 +71,8 @@ export const planetsData = {
         color: "goldenrod",
         orbitPeriod: 10759,
         inclination: 2.5,
+        isRetrograd: false,
+        rotationPeriod: 10.7 * 3600 // 10.7 часов в секундах
     },
     uranus: {
         semiMajorAxis: 19.22,
@@ -69,6 +81,8 @@ export const planetsData = {
         color: "lightblue",
         orbitPeriod: 30685,
         inclination: 0.8,
+        isRetrograd: true,
+        rotationPeriod: 17.2 * 3600 // 17.2 часов в секундах
     },
     neptune: {
         semiMajorAxis: 30.05,
@@ -77,6 +91,8 @@ export const planetsData = {
         color: "blue",
         orbitPeriod: 60190,
         inclination: 1.8,
+        isRetrograd: false,
+        rotationPeriod: 16.1 * 3600 // 16.1 часов в секундах
     },
     pluto: {
         semiMajorAxis: 39.48,
@@ -85,17 +101,7 @@ export const planetsData = {
         color: "red",
         orbitPeriod: 90500,
         inclination: 17.2,
-    },
-};
-
-export const rotationPeriods = {
-    mercury: 58.6 * 3600, // 58.6 часов в секундах
-    venus: 243 * 3600,    // 243 часа в секундах
-    earth: 24 * 3600,     // 24 часа в секундах
-    mars: 24.6 * 3600,    // 24.6 часа в секундах
-    jupiter: 9.9 * 3600,  // 9.9 часов в секундах
-    saturn: 10.7 * 3600,  // 10.7 часов в секундах
-    uranus: 17.2 * 3600,   // 17.2 часа в секундах
-    neptune: 16.1 * 3600,  // 16.1 часа в секундах
-    pluto: 153.3 * 3600,   // 153.3 часа в секундах
+        isRetrograd: false,
+        rotationPeriod: 153.3 * 24 * 3600 // 153.3 земных дня в секундах
+    }
 };

@@ -33,6 +33,8 @@ function SolarSystem() {
           orbitPeriod={params.orbitPeriod}
           inclination={params.inclination}
           texture={createGradientTexture()}
+          isRetrograd={params.isRetrograd}
+          rotationPeriod={params.rotationPeriod}
         />
       ))}
     </Canvas>

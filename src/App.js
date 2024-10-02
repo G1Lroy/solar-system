@@ -1,5 +1,5 @@
 import './App.css';
-import  Solarsystem  from './components/SolarSystem'
+import Solarsystem from './components/SolarSystem'
 
 function App() {
   return (
